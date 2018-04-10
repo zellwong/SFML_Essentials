@@ -1,26 +1,23 @@
 #include <SFML/Graphics.hpp>
 #include "AssetManager.h"
 
-int main()
-{
-	sf::RenderWindow window(sf::VideoMode(640, 480), "RenderTexture");
-	AssetManager m;
+int main() {
+  sf::RenderWindow window(sf::VideoMode(640, 480), "RenderTexture");
+  AssetManager m;
 
-	if (!sf::Shader::isAvailable())
-		return -1; //Shaders are not supported. Abort!
+  if (!sf::Shader::isAvailable()) return -1;  // Shaders are not supported. Abort!
 
-	auto shader = AssetManager::GetShader("vertShader.vert", "fragShader.frag");
+  auto shader = AssetManager::GetShader("vertShader.vert", "fragShader.frag");
 
-	sf::Sprite sprite(AssetManager::GetTexture("myTexture.png"));
+  sf::Sprite sprite(AssetManager::GetTexture("myTexture.png"));
 
-	while (window.isOpen())
-	{
-		window.clear();
+  while (window.isOpen()) {
+    window.clear();
 
-		window.draw(sprite, shader);
+    window.draw(sprite, shader);
 
-		window.display();
-	}
+    window.display();
+  }
 
-	return 0;
+  return 0;
 }

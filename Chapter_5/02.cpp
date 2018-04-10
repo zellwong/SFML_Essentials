@@ -1,24 +1,18 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
+int main() {
+  sf::Window window(sf::VideoMode(640, 480), "Audio");
 
-int main()
-{
-	sf::Window window(sf::VideoMode(640, 480), "Audio");
+  sf::SoundBuffer sBuffer;
+  if (!sBuffer.loadFromFile("mySound.ogg")) return -1;
 
-	sf::SoundBuffer sBuffer;
-	if (!sBuffer.loadFromFile("mySound.ogg"))
-		return -1;
+  sf::Sound sound(sBuffer);
 
-	sf::Sound sound(sBuffer);
+  sound.play();
 
-	sound.play();
+  while (window.isOpen()) {
+  }
 
-	while (window.isOpen())
-	{
-	}
-
-	return 0;
+  return 0;
 }
-
-

@@ -1,52 +1,43 @@
-#include "stdafx.h"
 #include "AssetManager.h"
 #include <assert.h>
+#include "stdafx.h"
 
 AssetManager* AssetManager::sInstance = nullptr;
 
-AssetManager::AssetManager()
-{
-	//Only allow one AssetManager to exist
-	//Otherwise throw an exception
-	assert(sInstance == nullptr);
-	sInstance = this;
+AssetManager::AssetManager() {
+  // Only allow one AssetManager to exist
+  // Otherwise throw an exception
+  assert(sInstance == nullptr);
+  sInstance = this;
 }
 
-sf::Texture& AssetManager::GetTexture(std::string const& filename)
-{
-	auto& texMap = sInstance->m_Textures;
+sf::Texture& AssetManager::GetTexture(std::string const& filename) {
+  auto& texMap = sInstance->m_Textures;
 
-	//See if the texture is already loaded
-	auto pairFound = texMap.find(filename);
-	//If yes, return the texture
-	if (pairFound != texMap.end())
-	{
-		return pairFound->second;
-	}
-	else //Else, load the texture and return it
-	{
-		//Create an element in the texture map
-		auto& texture = texMap[filename];
-		texture.loadFromFile(filename);
-		return texture;
-	}
+  // See if the texture is already loaded
+  auto pairFound = texMap.find(filename);
+  // If yes, return the texture
+  if (pairFound != texMap.end()) {
+    return pairFound->second;
+  } else  // Else, load the texture and return it
+  {
+    // Create an element in the texture map
+    auto& texture = texMap[filename];
+    texture.loadFromFile(filename);
+    return texture;
+  }
 }
 
-sf::SoundBuffer& AssetManager::GetSoundBuffer(std::string const& filename)
-{
-	auto& sBufferMap = sInstance->m_SoundBuffers;
+sf::SoundBuffer& AssetManager::GetSoundBuffer(std::string const& filename) {
+  auto& sBufferMap = sInstance->m_SoundBuffers;
 
-	auto pairFound = sBufferMap.find(filename);
-	if (pairFound != sBufferMap.end())
-	{
-		return pairFound->second;
-	}
-	else
-	{
-		//Create an element in the SoundBuffer map
-		auto& sBuffer = sBufferMap[filename];
-		sBuffer.loadFromFile(filename);
-		return sBuffer;
-	}
+  auto pairFound = sBufferMap.find(filename);
+  if (pairFound != sBufferMap.end()) {
+    return pairFound->second;
+  } else {
+    // Create an element in the SoundBuffer map
+    auto& sBuffer = sBufferMap[filename];
+    sBuffer.loadFromFile(filename);
+    return sBuffer;
+  }
 }
-
