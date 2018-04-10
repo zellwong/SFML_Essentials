@@ -4,7 +4,10 @@ project(SFML_Essentials)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
 find_package (SFML REQUIRED system window graphics network audio)
-include_directories(${SFML_INCLUDE_DIR})
+
+if (SFML_FOUND)
+  include_directories(${SFML_INCLUDE_DIR})
+endif()
 
 add_executable(01_01 Chapter_1/01.cpp)
 target_link_libraries(01_01 ${SFML_LIBRARIES})
