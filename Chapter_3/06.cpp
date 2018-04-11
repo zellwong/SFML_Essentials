@@ -10,7 +10,7 @@ int main() {
     // Accumulate time with each frame
     elapsedTime += deltaTime;
 
-    if (elapsedTime > sf::seconds(5)) window.close();
+    if (elapsedTime > sf::seconds(2)) window.close();
   }
 
   return 0;

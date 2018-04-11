@@ -6,7 +6,7 @@ int main() {
   window.setFramerateLimit(60);
 
   sf::Texture texture;
-  texture.loadFromFile("myTexture.png");
+  texture.loadFromFile("leaf.png");
 
   sf::ConvexShape shape(5);  // Convex shape has 5 points
   shape.setPoint(0, sf::Vector2f(0, 0));
@@ -20,9 +20,20 @@ int main() {
   shape.move(20, 20);  // Move it, so the outline is clearly visible
 
   while (window.isOpen()) {
-    sf::Event ev;
-    window.pollEvent(ev);
     // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
+    }
 
     window.clear(sf::Color::Black);
     window.draw(shape);

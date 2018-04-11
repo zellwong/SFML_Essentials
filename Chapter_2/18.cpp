@@ -22,16 +22,27 @@ int main() {
   sf::RenderWindow window(sf::VideoMode(640, 442), "Textures");
 
   sf::Texture texture;
-  texture.loadFromFile("myTexture.png");
+  texture.loadFromFile("leaf.png");
 
   sf::RectangleShape rectShape(sf::Vector2f(texture.getSize().x, texture.getSize().y));
   rectShape.setOrigin(rectShape.getSize() * 0.5f);
   rectShape.setTexture(&texture);
 
   while (window.isOpen()) {
-    sf::Event ev;
-    window.pollEvent(ev);
     // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
+    }
 
     window.clear(sf::Color::Black);
 

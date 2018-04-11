@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
-#include "AssetManager.h"
+#include "AssetManagement/AssetManager.h"
 
 int main() {
   sf::RenderWindow window(sf::VideoMode(640, 480), "AssetManager");
   AssetManager manager;
 
   sf::Vector2i spriteSize(32, 32);
-  sf::Sprite sprite(AssetManager::GetTexture("spriteSheet.png"));
+  sf::Sprite sprite(AssetManager::GetTexture("crystal.png"));
   // Set the sprite image to the first frame of the animation
   sprite.setTextureRect(sf::IntRect(0, 0, spriteSize.x, spriteSize.y));
 
@@ -16,6 +16,21 @@ int main() {
   sf::Time elapsedTime;
   sf::Clock clock;
   while (window.isOpen()) {
+    // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
+    }
+
     // Returns the elapsed time and restarts the clock
     sf::Time deltaTime = clock.restart();
     // Accumulate time with each frame

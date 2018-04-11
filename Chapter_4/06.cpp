@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "AssetManager.h"
+#include "AssetManagement/AssetManager.h"
 
 int main() {
   sf::RenderWindow window(sf::VideoMode(320, 320), "Views - Rotation : 0");
@@ -15,7 +15,7 @@ int main() {
   window.setView(view);
 
   sf::Vector2f spriteSize = sf::Vector2f(32, 32);
-  auto& texture = AssetManager::GetTexture("myTexture.png");
+  auto& texture = AssetManager::GetTexture("leaf.png");
   sf::Sprite sprite1(texture);
   sprite1.setOrigin(spriteSize * 0.5f);
   sprite1.setPosition(sf::Vector2f(-80, -80));
@@ -37,8 +37,19 @@ int main() {
     // Returns the elapsed time and restarts the clock
     sf::Time deltaTime = clock.restart();
 
-    sf::Event ev;
-    while (window.pollEvent(ev)) {
+    // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
     }
 
     window.clear(sf::Color::Black);

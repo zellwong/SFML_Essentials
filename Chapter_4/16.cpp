@@ -9,8 +9,9 @@ int main() {
   settings.majorVersion = 3;
   settings.minorVersion = 0;
   settings.antialiasingLevel = 2;
-  sf::RenderWindow window(sf::VideoMode(640, 480), "OpenGL", sf::Style::Default,
-                          settings);
+  sf::RenderWindow window(sf::VideoMode(640, 480),
+                          "OpenGL - Window is ready to receive OpenGL calls",
+                          sf::Style::Default, settings);
 
   settings = window.getSettings();
   std::cout << "depthBits: " << settings.depthBits << std::endl;
@@ -19,10 +20,23 @@ int main() {
   std::cout << "version: " << settings.majorVersion << "." << settings.minorVersion
             << std::endl;
 
-  // Window is ready to receive OpenGL calls here
+  std::cout << "Window is ready to receive OpenGL calls!\n";
 
   while (window.isOpen()) {
-    // Game loop
+    // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   return 0;

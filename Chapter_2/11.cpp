@@ -6,7 +6,7 @@ int main() {
   window.setFramerateLimit(60);
 
   sf::Texture texture;
-  texture.loadFromFile("myTexture.png");
+  texture.loadFromFile("leaf.png");
 
   sf::Vector2u textureSize = texture.getSize();
   float rectWidth = static_cast<float>(textureSize.x);
@@ -15,9 +15,20 @@ int main() {
   rectShape.setTexture(&texture);
 
   while (window.isOpen()) {
-    sf::Event ev;
-    window.pollEvent(ev);
     // Handle events
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      switch (event.type) {
+        case sf::Event::EventType::Closed:
+          window.close();
+          break;
+        case sf::Event::EventType::KeyPressed:
+          if (event.key.code == sf::Keyboard::Escape) window.close();
+          break;
+        default:
+          break;
+      }
+    }
 
     window.clear(sf::Color::Black);
     window.draw(rectShape);
